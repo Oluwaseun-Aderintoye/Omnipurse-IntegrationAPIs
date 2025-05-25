@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OmnipurseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ContactU">
+    <Key>
+      <PropertyRef Name="ContactUsID" />
+    </Key>
+    <Property Name="ContactUsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedByWhoID" Type="Int32" />
+    <Property Name="AssignedToWhoID" Type="Int32" />
+    <Property Name="AssignedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CommentOfAssignee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByWhoID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RegistrationNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Prefix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Suffix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsCompany" Type="Boolean" />
+    <Property Name="PhoneMobileCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneHomeCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneHome" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="PersonTypeID" Type="Int32" />
+    <Property Name="PhotoURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhotoData" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FolderName" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+    <Property Name="ReferralCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ReferredByPersonID" Type="Int32" />
+    <Property Name="ReferredByReferralCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedByUserID" Type="Int32" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="Int32" />
+    <Property Name="ModuleID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PersonType">
+    <Key>
+      <PropertyRef Name="PersonTypeID" />
+    </Key>
+    <Property Name="PersonTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonTypeCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="PersonTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PersonTypeDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedByUserID" Type="Int32" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="Int32" />
+    <Property Name="ModuleID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StatusDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="SystemSetting">
+    <Key>
+      <PropertyRef Name="SystemSettingID" />
+    </Key>
+    <Property Name="SystemSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SETTING_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SETTING_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DATA_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IS_VISIBLE" Type="Boolean" />
+    <Property Name="CREATED_BY_USER_ID" Type="Int32" />
+    <Property Name="CREATED_ON_DATE" Type="DateTime" Precision="3" />
+    <Property Name="IP_ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WHAT_WAS_DONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LAST_MODIFIED_ON_DATE" Type="DateTime" Precision="3" />
+    <Property Name="LAST_MODIFIED_BY_USER_ID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="OmnipurseDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ContactUs" EntityType="Self.ContactU" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="PersonTypes" EntityType="Self.PersonType" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="SystemSettings" EntityType="Self.SystemSetting" />
+    <EntitySet Name="AppSettings" EntityType="OmnipurseDBModel.AppSetting" />
+    <EntitySet Name="TableChangeAudits" EntityType="OmnipurseDBModel.TableChangeAudit" />
+    <EntitySet Name="PersonPersonTypes" EntityType="OmnipurseDBModel.PersonPersonType" />
+    <EntitySet Name="Users" EntityType="OmnipurseDBModel.User" />
+  </EntityContainer>
+  <EntityType Name="AppSetting">
+    <Key>
+      <PropertyRef Name="AppSettingID" />
+    </Key>
+    <Property Name="AppSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SettingKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SettingValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DataType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="LastModifiedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TableChangeAudit">
+    <Key>
+      <PropertyRef Name="TableChangeAuditID" />
+    </Key>
+    <Property Name="TableChangeAuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TablePrimaryKeyID" Type="Int32" />
+    <Property Name="ActionTakenThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChangedByUserIDThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChangeThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OldValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChangedColumns" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserIp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PersonPersonType">
+    <Key>
+      <PropertyRef Name="PersonPersonTypeID" />
+    </Key>
+    <Property Name="PersonPersonTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="PersonTypeID" Type="Int32" />
+    <Property Name="CreatedByUserID" Type="Int32" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="Int32" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="IsPasswordUserDefined" Type="Boolean" />
+    <Property Name="IsVerified" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="UserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastLoginOnDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="ResetToken" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ResetTokenExpires" Type="DateTime" Precision="3" />
+    <Property Name="RememberToken" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LoginAttempts" Type="Int32" />
+    <Property Name="LockedUntil" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

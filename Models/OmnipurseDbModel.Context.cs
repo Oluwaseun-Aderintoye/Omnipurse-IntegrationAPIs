@@ -30,5 +30,13 @@ namespace IntegrationAPIs.Models
         public virtual DbSet<PersonType> PersonTypes { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SystemSetting> SystemSettings { get; set; }
+        public virtual DbSet<AppSetting> AppSettings { get; set; }
+        public virtual DbSet<TableChangeAudit> TableChangeAudits { get; set; }
+        public virtual DbSet<PersonPersonType> PersonPersonTypes { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Environment> Environments { get; set; }
+        public virtual DbSet<ExceptionLog> ExceptionLogs { get; set; }
+        public virtual DbSet<Level> Levels { get; set; }
+        public virtual DbSet<LevelType> LevelTypes { get; set; }
     }
 }

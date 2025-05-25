@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OmnipurseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppSetting">
+    <Key>
+      <PropertyRef Name="AppSettingID" />
+    </Key>
+    <Property Name="AppSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SettingKey" Type="nvarchar" MaxLength="100" />
+    <Property Name="SettingValue" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="DataType" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="500" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ContactUs">
+    <Key>
+      <PropertyRef Name="ContactUsID" />
+    </Key>
+    <Property Name="ContactUsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonID" Type="int" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="500" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="500" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="CreatedByWhoID" Type="int" />
+    <Property Name="AssignedToWhoID" Type="int" />
+    <Property Name="AssignedOnDate" Type="datetime" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="CommentOfAssignee" Type="nvarchar(max)" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+    <Property Name="LastModifiedByWhoID" Type="int" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="10" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prefix" Type="nvarchar" MaxLength="50" />
+    <Property Name="Suffix" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsCompany" Type="bit" />
+    <Property Name="PhoneMobileCountryCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="PhoneMobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="PhoneHomeCountryCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="PhoneHome" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmailAddress2" Type="nvarchar" MaxLength="100" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="Gender" Type="char" MaxLength="1" />
+    <Property Name="PersonTypeID" Type="int" />
+    <Property Name="PhotoURL" Type="nvarchar(max)" />
+    <Property Name="PhotoData" Type="varbinary(max)" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="250" />
+    <Property Name="FolderName" Type="nvarchar" MaxLength="3000" />
+    <Property Name="ReferralCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ReferredByPersonID" Type="int" />
+    <Property Name="ReferredByReferralCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="CreatedByUserID" Type="int" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+    <Property Name="LastModifiedByUserID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonPersonType">
+    <Key>
+      <PropertyRef Name="PersonPersonTypeID" />
+    </Key>
+    <Property Name="PersonPersonTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonID" Type="int" />
+    <Property Name="PersonTypeID" Type="int" />
+    <Property Name="CreatedByUserID" Type="int" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedByUserID" Type="int" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PersonType">
+    <Key>
+      <PropertyRef Name="PersonTypeID" />
+    </Key>
+    <Property Name="PersonTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonTypeCode" Type="nvarchar" MaxLength="2" />
+    <Property Name="PersonTypeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PersonTypeDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="CreatedByUserID" Type="int" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+    <Property Name="LastModifiedByUserID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SystemSetting">
+    <Key>
+      <PropertyRef Name="SystemSettingID" />
+    </Key>
+    <Property Name="SystemSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SETTING_NAME" Type="nvarchar" MaxLength="150" />
+    <Property Name="SETTING_VALUE" Type="nvarchar(max)" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="250" />
+    <Property Name="DATA_TYPE" Type="nvarchar" MaxLength="50" />
+    <Property Name="IS_VISIBLE" Type="bit" />
+    <Property Name="CREATED_BY_USER_ID" Type="int" />
+    <Property Name="CREATED_ON_DATE" Type="datetime" />
+    <Property Name="IP_ADDRESS" Type="nvarchar" MaxLength="50" />
+    <Property Name="WHAT_WAS_DONE" Type="nvarchar" MaxLength="50" />
+    <Property Name="LAST_MODIFIED_ON_DATE" Type="datetime" />
+    <Property Name="LAST_MODIFIED_BY_USER_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="TableChangeAudit">
+    <Key>
+      <PropertyRef Name="TableChangeAuditID" />
+    </Key>
+    <Property Name="TableChangeAuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TablePrimaryKeyID" Type="int" />
+    <Property Name="ActionTakenThread" Type="nvarchar(max)" />
+    <Property Name="ChangedByUserIDThread" Type="nvarchar(max)" />
+    <Property Name="ChangeThread" Type="nvarchar(max)" />
+    <Property Name="OldValues" Type="nvarchar(max)" />
+    <Property Name="NewValues" Type="nvarchar(max)" />
+    <Property Name="ChangedColumns" Type="nvarchar(max)" />
+    <Property Name="UserIp" Type="nvarchar(max)" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PasswordHash" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="IsPasswordUserDefined" Type="bit" />
+    <Property Name="IsVerified" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="UserRole" Type="varchar" MaxLength="50" />
+    <Property Name="LastLoginOnDate" Type="datetime" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="UpdatedOnDate" Type="datetime" />
+    <Property Name="ResetToken" Type="varchar" MaxLength="255" />
+    <Property Name="ResetTokenExpires" Type="datetime" />
+    <Property Name="RememberToken" Type="varchar" MaxLength="255" />
+    <Property Name="LoginAttempts" Type="int" />
+    <Property Name="LockedUntil" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="OmnipurseDBModelStoreContainer">
+    <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonPersonType" EntityType="Self.PersonPersonType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonType" EntityType="Self.PersonType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemSetting" EntityType="Self.SystemSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TableChangeAudit" EntityType="Self.TableChangeAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

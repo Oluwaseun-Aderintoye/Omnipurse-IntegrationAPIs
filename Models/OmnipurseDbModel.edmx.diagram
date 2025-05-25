@@ -10,6 +10,15 @@
         <EntityTypeShape EntityType="OmnipurseDBModel.PersonType" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OmnipurseDBModel.Status" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OmnipurseDBModel.SystemSetting" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.AppSetting" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.TableChangeAudit" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.PersonPersonType" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.User" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.Environment" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.ExceptionLog" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.Level" Width="1.5" PointX="11.625" PointY="6" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.LevelType" Width="1.5" PointX="9.375" PointY="6" />
+        <AssociationConnector Association="OmnipurseDBModel.FK__Levels__LastModi__18EBB532" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

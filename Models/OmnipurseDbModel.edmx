@@ -4,7 +4,20 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OmnipurseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OmnipurseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppSetting">
+          <Key>
+            <PropertyRef Name="AppSettingID" />
+          </Key>
+          <Property Name="AppSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingKey" Type="nvarchar" MaxLength="100" />
+          <Property Name="SettingValue" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DataType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ContactUs">
           <Key>
             <PropertyRef Name="ContactUsID" />
@@ -26,6 +39,62 @@
           <Property Name="LastModifiedOnDate" Type="datetime" />
           <Property Name="LastModifiedByWhoID" Type="int" />
         </EntityType>
+        <EntityType Name="Environments">
+          <Key>
+            <PropertyRef Name="EnvironmentID" />
+          </Key>
+          <Property Name="EnvironmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnvironmentName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ExceptionLog">
+          <Key>
+            <PropertyRef Name="ExceptionLogID" />
+          </Key>
+          <Property Name="ExceptionLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="LevelID" Type="int" Nullable="false" />
+          <Property Name="LevelTypeID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+          <Property Name="ExceptionType" Type="varchar" MaxLength="255" />
+          <Property Name="StackTrace" Type="varchar(max)" />
+          <Property Name="Source" Type="varchar" MaxLength="255" />
+          <Property Name="MethodName" Type="varchar" MaxLength="255" />
+          <Property Name="LineNumber" Type="int" />
+          <Property Name="RequestPath" Type="varchar(max)" />
+          <Property Name="HttpMethod" Type="varchar" MaxLength="10" />
+          <Property Name="AdditionalData" Type="varchar(max)" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="CorrelationID" Type="varchar" MaxLength="100" />
+          <Property Name="ClientIp" Type="varchar" MaxLength="45" />
+          <Property Name="UserAgent" Type="varchar" MaxLength="255" />
+          <Property Name="EnvironmentID" Type="int" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LevelTypeID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LevelType">
+          <Key>
+            <PropertyRef Name="LevelTypeID" />
+          </Key>
+          <Property Name="LevelTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="PersonID" />
@@ -42,9 +111,9 @@
           <Property Name="CompanyName" Type="nvarchar" MaxLength="150" />
           <Property Name="IsCompany" Type="bit" />
           <Property Name="PhoneMobileCountryCode" Type="nvarchar" MaxLength="5" />
-          <Property Name="PhoneMobile" Type="nvarchar" MaxLength="10" />
+          <Property Name="PhoneMobile" Type="nvarchar" MaxLength="20" />
           <Property Name="PhoneHomeCountryCode" Type="nvarchar" MaxLength="5" />
-          <Property Name="PhoneHome" Type="nvarchar" MaxLength="10" />
+          <Property Name="PhoneHome" Type="nvarchar" MaxLength="20" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
           <Property Name="EmailAddress2" Type="nvarchar" MaxLength="100" />
           <Property Name="BirthDate" Type="date" />
@@ -63,6 +132,18 @@
           <Property Name="LastModifiedOnDate" Type="datetime" />
           <Property Name="LastModifiedByUserID" Type="int" />
           <Property Name="ModuleID" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonPersonType">
+          <Key>
+            <PropertyRef Name="PersonPersonTypeID" />
+          </Key>
+          <Property Name="PersonPersonTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="PersonTypeID" Type="int" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="LastModifiedByUserID" Type="int" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PersonType">
           <Key>
@@ -107,15 +188,77 @@
           <Property Name="LAST_MODIFIED_ON_DATE" Type="datetime" />
           <Property Name="LAST_MODIFIED_BY_USER_ID" Type="int" />
         </EntityType>
+        <EntityType Name="TableChangeAudit">
+          <Key>
+            <PropertyRef Name="TableChangeAuditID" />
+          </Key>
+          <Property Name="TableChangeAuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TablePrimaryKeyID" Type="int" />
+          <Property Name="ActionTakenThread" Type="nvarchar(max)" />
+          <Property Name="ChangedByUserIDThread" Type="nvarchar(max)" />
+          <Property Name="ChangeThread" Type="nvarchar(max)" />
+          <Property Name="OldValues" Type="nvarchar(max)" />
+          <Property Name="NewValues" Type="nvarchar(max)" />
+          <Property Name="ChangedColumns" Type="nvarchar(max)" />
+          <Property Name="UserIp" Type="nvarchar(max)" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsPasswordUserDefined" Type="bit" />
+          <Property Name="IsVerified" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="UserRole" Type="varchar" MaxLength="50" />
+          <Property Name="LastLoginOnDate" Type="datetime" />
+          <Property Name="CreatedOnDate" Type="datetime" />
+          <Property Name="UpdatedOnDate" Type="datetime" />
+          <Property Name="ResetToken" Type="varchar" MaxLength="255" />
+          <Property Name="ResetTokenExpires" Type="datetime" />
+          <Property Name="RememberToken" Type="varchar" MaxLength="255" />
+          <Property Name="LoginAttempts" Type="int" />
+          <Property Name="LockedUntil" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Levels__LastModi__18EBB532">
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+          <End Role="Level" Type="Self.Level" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="LevelTypeID" />
+            </Principal>
+            <Dependent Role="Level">
+              <PropertyRef Name="LevelTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OmnipurseDBModelStoreContainer">
+          <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Environments" EntityType="Self.Environments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LevelType" EntityType="Self.LevelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonPersonType" EntityType="Self.PersonPersonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonType" EntityType="Self.PersonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemSetting" EntityType="Self.SystemSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableChangeAudit" EntityType="Self.TableChangeAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Levels__LastModi__18EBB532" Association="Self.FK__Levels__LastModi__18EBB532">
+            <End Role="LevelType" EntitySet="LevelType" />
+            <End Role="Level" EntitySet="Level" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OmnipurseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -156,9 +299,9 @@
           <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="IsCompany" Type="Boolean" />
           <Property Name="PhoneMobileCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneMobile" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PhoneHomeCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneHome" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneHome" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
@@ -227,7 +370,153 @@
           <EntitySet Name="PersonTypes" EntityType="Self.PersonType" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="SystemSettings" EntityType="Self.SystemSetting" />
+          <EntitySet Name="AppSettings" EntityType="OmnipurseDBModel.AppSetting" />
+          <EntitySet Name="TableChangeAudits" EntityType="OmnipurseDBModel.TableChangeAudit" />
+          <EntitySet Name="PersonPersonTypes" EntityType="OmnipurseDBModel.PersonPersonType" />
+          <EntitySet Name="Users" EntityType="OmnipurseDBModel.User" />
+          <EntitySet Name="Environments" EntityType="OmnipurseDBModel.Environment" />
+          <EntitySet Name="ExceptionLogs" EntityType="OmnipurseDBModel.ExceptionLog" />
+          <EntitySet Name="Levels" EntityType="OmnipurseDBModel.Level" />
+          <EntitySet Name="LevelTypes" EntityType="OmnipurseDBModel.LevelType" />
+          <AssociationSet Name="FK__Levels__LastModi__18EBB532" Association="OmnipurseDBModel.FK__Levels__LastModi__18EBB532">
+            <End Role="LevelType" EntitySet="LevelTypes" />
+            <End Role="Level" EntitySet="Levels" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AppSetting">
+          <Key>
+            <PropertyRef Name="AppSettingID" />
+          </Key>
+          <Property Name="AppSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SettingKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SettingValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TableChangeAudit">
+          <Key>
+            <PropertyRef Name="TableChangeAuditID" />
+          </Key>
+          <Property Name="TableChangeAuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TablePrimaryKeyID" Type="Int32" />
+          <Property Name="ActionTakenThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChangedByUserIDThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChangeThread" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChangedColumns" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserIp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PersonPersonType">
+          <Key>
+            <PropertyRef Name="PersonPersonTypeID" />
+          </Key>
+          <Property Name="PersonPersonTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="PersonTypeID" Type="Int32" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedByUserID" Type="Int32" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsPasswordUserDefined" Type="Boolean" />
+          <Property Name="IsVerified" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="UserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastLoginOnDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="ResetToken" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResetTokenExpires" Type="DateTime" Precision="3" />
+          <Property Name="RememberToken" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LoginAttempts" Type="Int32" />
+          <Property Name="LockedUntil" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Environment">
+          <Key>
+            <PropertyRef Name="EnvironmentID" />
+          </Key>
+          <Property Name="EnvironmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnvironmentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ExceptionLog">
+          <Key>
+            <PropertyRef Name="ExceptionLogID" />
+          </Key>
+          <Property Name="ExceptionLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LevelID" Type="Int32" Nullable="false" />
+          <Property Name="LevelTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExceptionType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MethodName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LineNumber" Type="Int32" />
+          <Property Name="RequestPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HttpMethod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AdditionalData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="CorrelationID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClientIp" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="UserAgent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EnvironmentID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LevelTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LevelType" Relationship="OmnipurseDBModel.FK__Levels__LastModi__18EBB532" FromRole="Level" ToRole="LevelType" />
+        </EntityType>
+        <EntityType Name="LevelType">
+          <Key>
+            <PropertyRef Name="LevelTypeID" />
+          </Key>
+          <Property Name="LevelTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Levels" Relationship="OmnipurseDBModel.FK__Levels__LastModi__18EBB532" FromRole="LevelType" ToRole="Level" />
+        </EntityType>
+        <Association Name="FK__Levels__LastModi__18EBB532">
+          <End Type="OmnipurseDBModel.LevelType" Role="LevelType" Multiplicity="1" />
+          <End Type="OmnipurseDBModel.Level" Role="Level" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="LevelTypeID" />
+            </Principal>
+            <Dependent Role="Level">
+              <PropertyRef Name="LevelTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -338,6 +627,134 @@
                 <ScalarProperty Name="WHAT_WAS_DONE" ColumnName="WHAT_WAS_DONE" />
                 <ScalarProperty Name="LAST_MODIFIED_ON_DATE" ColumnName="LAST_MODIFIED_ON_DATE" />
                 <ScalarProperty Name="LAST_MODIFIED_BY_USER_ID" ColumnName="LAST_MODIFIED_BY_USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppSettings">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.AppSetting">
+              <MappingFragment StoreEntitySet="AppSetting">
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+                <ScalarProperty Name="SettingKey" ColumnName="SettingKey" />
+                <ScalarProperty Name="AppSettingID" ColumnName="AppSettingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableChangeAudits">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.TableChangeAudit">
+              <MappingFragment StoreEntitySet="TableChangeAudit">
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="UserIp" ColumnName="UserIp" />
+                <ScalarProperty Name="ChangedColumns" ColumnName="ChangedColumns" />
+                <ScalarProperty Name="NewValues" ColumnName="NewValues" />
+                <ScalarProperty Name="OldValues" ColumnName="OldValues" />
+                <ScalarProperty Name="ChangeThread" ColumnName="ChangeThread" />
+                <ScalarProperty Name="ChangedByUserIDThread" ColumnName="ChangedByUserIDThread" />
+                <ScalarProperty Name="ActionTakenThread" ColumnName="ActionTakenThread" />
+                <ScalarProperty Name="TablePrimaryKeyID" ColumnName="TablePrimaryKeyID" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="TableChangeAuditID" ColumnName="TableChangeAuditID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonPersonTypes">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.PersonPersonType">
+              <MappingFragment StoreEntitySet="PersonPersonType">
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="PersonPersonTypeID" ColumnName="PersonPersonTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="LockedUntil" ColumnName="LockedUntil" />
+                <ScalarProperty Name="LoginAttempts" ColumnName="LoginAttempts" />
+                <ScalarProperty Name="RememberToken" ColumnName="RememberToken" />
+                <ScalarProperty Name="ResetTokenExpires" ColumnName="ResetTokenExpires" />
+                <ScalarProperty Name="ResetToken" ColumnName="ResetToken" />
+                <ScalarProperty Name="UpdatedOnDate" ColumnName="UpdatedOnDate" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="LastLoginOnDate" ColumnName="LastLoginOnDate" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="IsPasswordUserDefined" ColumnName="IsPasswordUserDefined" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Environments">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.Environment">
+              <MappingFragment StoreEntitySet="Environments">
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnvironmentName" ColumnName="EnvironmentName" />
+                <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionLogs">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.ExceptionLog">
+              <MappingFragment StoreEntitySet="ExceptionLog">
+                <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="ClientIp" ColumnName="ClientIp" />
+                <ScalarProperty Name="CorrelationID" ColumnName="CorrelationID" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="AdditionalData" ColumnName="AdditionalData" />
+                <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+                <ScalarProperty Name="RequestPath" ColumnName="RequestPath" />
+                <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ExceptionLogID" ColumnName="ExceptionLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.Level">
+              <MappingFragment StoreEntitySet="Level">
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LevelTypes">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.LevelType">
+              <MappingFragment StoreEntitySet="LevelType">
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LevelTypeName" ColumnName="LevelTypeName" />
+                <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
