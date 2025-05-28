@@ -39,6 +39,33 @@
           <Property Name="LastModifiedOnDate" Type="datetime" />
           <Property Name="LastModifiedByWhoID" Type="int" />
         </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="CountryPhoneCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="CountryFlag" Type="nvarchar" MaxLength="150" />
+          <Property Name="CountryCapital" Type="nvarchar" MaxLength="200" />
+          <Property Name="CountryCurrency" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryNationality" Type="nvarchar" MaxLength="150" />
+          <Property Name="CountryPerson" Type="nvarchar" MaxLength="150" />
+          <Property Name="Language" Type="nvarchar" MaxLength="100" />
+          <Property Name="CountryPopulation" Type="int" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Workstation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ApprovedByUserID" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="ModuleID" Type="int" />
+        </EntityType>
         <EntityType Name="Environments">
           <Key>
             <PropertyRef Name="EnvironmentID" />
@@ -56,10 +83,11 @@
           <Property Name="ExceptionLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="PersonID" Type="int" />
-          <Property Name="Timestamp" Type="datetime" Nullable="false" />
-          <Property Name="LevelID" Type="int" Nullable="false" />
-          <Property Name="LevelTypeID" Type="int" Nullable="false" />
-          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="LevelID" Type="int" />
+          <Property Name="LevelTypeID" Type="int" />
+          <Property Name="Message" Type="varchar(max)" />
           <Property Name="ExceptionType" Type="varchar" MaxLength="255" />
           <Property Name="StackTrace" Type="varchar(max)" />
           <Property Name="Source" Type="varchar" MaxLength="255" />
@@ -160,6 +188,15 @@
           <Property Name="LastModifiedByUserID" Type="int" />
           <Property Name="ModuleID" Type="int" />
         </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="100" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="DateAdded" Type="datetime" />
+        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="StatusID" />
@@ -227,6 +264,18 @@
           <Property Name="LoginAttempts" Type="int" />
           <Property Name="LockedUntil" Type="datetime" />
         </EntityType>
+        <Association Name="Country_State">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Levels__LastModi__18EBB532">
           <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
           <End Role="Level" Type="Self.Level" Multiplicity="*" />
@@ -242,6 +291,7 @@
         <EntityContainer Name="OmnipurseDBModelStoreContainer">
           <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Environments" EntityType="Self.Environments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
@@ -249,10 +299,15 @@
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonPersonType" EntityType="Self.PersonPersonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonType" EntityType="Self.PersonType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemSetting" EntityType="Self.SystemSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableChangeAudit" EntityType="Self.TableChangeAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Country_State" Association="Self.Country_State">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
           <AssociationSet Name="FK__Levels__LastModi__18EBB532" Association="Self.FK__Levels__LastModi__18EBB532">
             <End Role="LevelType" EntitySet="LevelType" />
             <End Role="Level" EntitySet="Level" />
@@ -382,6 +437,12 @@
             <End Role="LevelType" EntitySet="LevelTypes" />
             <End Role="Level" EntitySet="Levels" />
           </AssociationSet>
+          <EntitySet Name="Countries" EntityType="OmnipurseDBModel.Country" />
+          <EntitySet Name="States" EntityType="OmnipurseDBModel.State" />
+          <AssociationSet Name="Country_State" Association="OmnipurseDBModel.Country_State">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppSetting">
           <Key>
@@ -464,10 +525,10 @@
           <Property Name="ExceptionLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="PersonID" Type="Int32" />
-          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LevelID" Type="Int32" Nullable="false" />
-          <Property Name="LevelTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Timestamp" Type="DateTime" Precision="3" />
+          <Property Name="LevelID" Type="Int32" />
+          <Property Name="LevelTypeID" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ExceptionType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -481,6 +542,7 @@
           <Property Name="ClientIp" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="UserAgent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EnvironmentID" Type="Int32" />
+          <Property Name="EmailAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Level">
           <Key>
@@ -514,6 +576,56 @@
             </Principal>
             <Dependent Role="Level">
               <PropertyRef Name="LevelTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CountryPhoneCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CountryFlag" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCapital" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryNationality" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CountryPerson" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CountryPopulation" Type="Int32" />
+          <Property Name="IpAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Workstation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedByUserID" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="ModuleID" Type="Int32" />
+          <NavigationProperty Name="States" Relationship="OmnipurseDBModel.Country_State" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="Int32" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Country" Relationship="OmnipurseDBModel.Country_State" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <Association Name="Country_State">
+          <End Type="OmnipurseDBModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="OmnipurseDBModel.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -712,6 +824,7 @@
           <EntitySetMapping Name="ExceptionLogs">
             <EntityTypeMapping TypeName="OmnipurseDBModel.ExceptionLog">
               <MappingFragment StoreEntitySet="ExceptionLog">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
                 <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
                 <ScalarProperty Name="ClientIp" ColumnName="ClientIp" />
@@ -755,6 +868,44 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="LevelTypeName" ColumnName="LevelTypeName" />
                 <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ApprovedByUserID" ColumnName="ApprovedByUserID" />
+                <ScalarProperty Name="Workstation" ColumnName="Workstation" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="CountryPopulation" ColumnName="CountryPopulation" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="CountryPerson" ColumnName="CountryPerson" />
+                <ScalarProperty Name="CountryNationality" ColumnName="CountryNationality" />
+                <ScalarProperty Name="CountryCurrency" ColumnName="CountryCurrency" />
+                <ScalarProperty Name="CountryCapital" ColumnName="CountryCapital" />
+                <ScalarProperty Name="CountryFlag" ColumnName="CountryFlag" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryPhoneCode" ColumnName="CountryPhoneCode" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

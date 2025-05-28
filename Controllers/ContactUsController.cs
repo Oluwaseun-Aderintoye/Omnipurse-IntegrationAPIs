@@ -13,18 +13,7 @@ namespace IntegrationAPIs.Controllers
     public class ContactUsController : ApiController
     {
         OmnipurseDBEntities db = new OmnipurseDBEntities();
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+        
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("api/ContactUs/CreateContactUs")]
@@ -95,28 +84,23 @@ namespace IntegrationAPIs.Controllers
             }
             catch(Exception exc)
             {
-                Console.WriteLine(exc.ToString());
+                #region Log Exception
+                var logger = new DevUtility.Controllers.Logger();
+                int levelType = (int)Enums.LevelType.Exception;
+                int level = (int)Enums.Level.Error;
+                string email = !string.IsNullOrEmpty(contactUs.EmailAddress)
+                    ? contactUs.EmailAddress : null;
+                logger.ExceptionLogger(exc, level, levelType, email);
+                #endregion
 
                 return Ok(new
                 {
-                    response = "failed; " + Request.CreateErrorResponse(
-                    HttpStatusCode.InternalServerError,
-                    "An internal error occurred: " + exc.ToString()
-                )
+                    response = "failed"
                 });
             }
             return Ok(new { response = "success" });
         }
-                
-        // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
 

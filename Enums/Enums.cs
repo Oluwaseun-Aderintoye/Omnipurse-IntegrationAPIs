@@ -27,9 +27,10 @@ namespace IntegrationAPIs.Enums
 
     public enum PersonType
     {
-        Administrator = 1,
-        Subscriber = 2,
-        ContactUs = 3
+        SuperAdmin = 1,
+        Admin = 2,
+        ContactUs = 3,
+        Subscriber = 4
     }
 
     public enum Environment

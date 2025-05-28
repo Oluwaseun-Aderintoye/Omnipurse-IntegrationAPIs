@@ -19,6 +19,9 @@
         <EntityTypeShape EntityType="OmnipurseDBModel.Level" Width="1.5" PointX="11.625" PointY="6" />
         <EntityTypeShape EntityType="OmnipurseDBModel.LevelType" Width="1.5" PointX="9.375" PointY="6" />
         <AssociationConnector Association="OmnipurseDBModel.FK__Levels__LastModi__18EBB532" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.Country" Width="1.5" PointX="9.375" PointY="10.125" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.State" Width="1.5" PointX="11.625" PointY="11.875" />
+        <AssociationConnector Association="OmnipurseDBModel.Country_State" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -176,5 +176,104 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Environments">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.Environment">
+        <MappingFragment StoreEntitySet="Environments">
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EnvironmentName" ColumnName="EnvironmentName" />
+          <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionLogs">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.ExceptionLog">
+        <MappingFragment StoreEntitySet="ExceptionLog">
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+          <ScalarProperty Name="ClientIp" ColumnName="ClientIp" />
+          <ScalarProperty Name="CorrelationID" ColumnName="CorrelationID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="AdditionalData" ColumnName="AdditionalData" />
+          <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+          <ScalarProperty Name="RequestPath" ColumnName="RequestPath" />
+          <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+          <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ExceptionLogID" ColumnName="ExceptionLogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Levels">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.Level">
+        <MappingFragment StoreEntitySet="Level">
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LevelTypes">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.LevelType">
+        <MappingFragment StoreEntitySet="LevelType">
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LevelTypeName" ColumnName="LevelTypeName" />
+          <ScalarProperty Name="LevelTypeID" ColumnName="LevelTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ApprovedByUserID" ColumnName="ApprovedByUserID" />
+          <ScalarProperty Name="Workstation" ColumnName="Workstation" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="CountryPopulation" ColumnName="CountryPopulation" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="CountryPerson" ColumnName="CountryPerson" />
+          <ScalarProperty Name="CountryNationality" ColumnName="CountryNationality" />
+          <ScalarProperty Name="CountryCurrency" ColumnName="CountryCurrency" />
+          <ScalarProperty Name="CountryCapital" ColumnName="CountryCapital" />
+          <ScalarProperty Name="CountryFlag" ColumnName="CountryFlag" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="CountryPhoneCode" ColumnName="CountryPhoneCode" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

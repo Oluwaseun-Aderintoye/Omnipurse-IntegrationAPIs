@@ -34,6 +34,90 @@
     <Property Name="LastModifiedOnDate" Type="datetime" />
     <Property Name="LastModifiedByWhoID" Type="int" />
   </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="CountryPhoneCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="CountryFlag" Type="nvarchar" MaxLength="150" />
+    <Property Name="CountryCapital" Type="nvarchar" MaxLength="200" />
+    <Property Name="CountryCurrency" Type="nvarchar" MaxLength="50" />
+    <Property Name="CountryNationality" Type="nvarchar" MaxLength="150" />
+    <Property Name="CountryPerson" Type="nvarchar" MaxLength="150" />
+    <Property Name="Language" Type="nvarchar" MaxLength="100" />
+    <Property Name="CountryPopulation" Type="int" />
+    <Property Name="IpAddress" Type="nvarchar" MaxLength="100" />
+    <Property Name="Workstation" Type="nvarchar" MaxLength="100" />
+    <Property Name="ApprovedByUserID" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="ApprovedDate" Type="datetime" />
+    <Property Name="IsApproved" Type="bit" />
+    <Property Name="Status" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedByUserID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="Environments">
+    <Key>
+      <PropertyRef Name="EnvironmentID" />
+    </Key>
+    <Property Name="EnvironmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EnvironmentName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ExceptionLog">
+    <Key>
+      <PropertyRef Name="ExceptionLogID" />
+    </Key>
+    <Property Name="ExceptionLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="PersonID" Type="int" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="500" />
+    <Property Name="Timestamp" Type="datetime" />
+    <Property Name="LevelID" Type="int" />
+    <Property Name="LevelTypeID" Type="int" />
+    <Property Name="Message" Type="varchar(max)" />
+    <Property Name="ExceptionType" Type="varchar" MaxLength="255" />
+    <Property Name="StackTrace" Type="varchar(max)" />
+    <Property Name="Source" Type="varchar" MaxLength="255" />
+    <Property Name="MethodName" Type="varchar" MaxLength="255" />
+    <Property Name="LineNumber" Type="int" />
+    <Property Name="RequestPath" Type="varchar(max)" />
+    <Property Name="HttpMethod" Type="varchar" MaxLength="10" />
+    <Property Name="AdditionalData" Type="varchar(max)" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="CorrelationID" Type="varchar" MaxLength="100" />
+    <Property Name="ClientIp" Type="varchar" MaxLength="45" />
+    <Property Name="UserAgent" Type="varchar" MaxLength="255" />
+    <Property Name="EnvironmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="Level">
+    <Key>
+      <PropertyRef Name="LevelID" />
+    </Key>
+    <Property Name="LevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LevelName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LevelTypeID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="LevelType">
+    <Key>
+      <PropertyRef Name="LevelTypeID" />
+    </Key>
+    <Property Name="LevelTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LevelTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedOnDate" Type="datetime" />
+    <Property Name="LastModifiedOnDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Person">
     <Key>
       <PropertyRef Name="PersonID" />
@@ -98,6 +182,15 @@
     <Property Name="LastModifiedOnDate" Type="datetime" />
     <Property Name="LastModifiedByUserID" Type="int" />
     <Property Name="ModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateName" Type="varchar" MaxLength="100" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="DateAdded" Type="datetime" />
   </EntityType>
   <EntityType Name="Status">
     <Key>
@@ -166,15 +259,53 @@
     <Property Name="LoginAttempts" Type="int" />
     <Property Name="LockedUntil" Type="datetime" />
   </EntityType>
+  <Association Name="Country_State">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="State" Type="Self.State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Levels__LastModi__18EBB532">
+    <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+    <End Role="Level" Type="Self.Level" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LevelType">
+        <PropertyRef Name="LevelTypeID" />
+      </Principal>
+      <Dependent Role="Level">
+        <PropertyRef Name="LevelTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="OmnipurseDBModelStoreContainer">
     <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Environments" EntityType="Self.Environments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LevelType" EntityType="Self.LevelType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonPersonType" EntityType="Self.PersonPersonType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonType" EntityType="Self.PersonType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SystemSetting" EntityType="Self.SystemSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TableChangeAudit" EntityType="Self.TableChangeAudit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Country_State" Association="Self.Country_State">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Levels__LastModi__18EBB532" Association="Self.FK__Levels__LastModi__18EBB532">
+      <End Role="LevelType" EntitySet="LevelType" />
+      <End Role="Level" EntitySet="Level" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

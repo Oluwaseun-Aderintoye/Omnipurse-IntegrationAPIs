@@ -9,42 +9,17 @@ using GreaterHeight.DevMessaging;
 using GreaterHeight.DevUtil;
 using IntegrationAPIs.Enums;
 using IntegrationAPIs.Models;
+using DevUtility.Controllers;
 
 namespace IntegrationAPIs.Controllers
 {
     public class SubscriberController : ApiController
     {
         OmnipurseDBEntities db = new OmnipurseDBEntities();
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
-
-        [System.Web.Http.AllowAnonymous]
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/Subscriber/SubscribeToNewsletter")]
+        
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/Subscriber/SubscribeToNewsletter")]
         public IHttpActionResult SubscribeToNewsletter([FromBody] Newsletter_Payload newsletter)
         {
             try
@@ -69,7 +44,7 @@ namespace IntegrationAPIs.Controllers
                         //Create in User table
                         var objUser = new User();
                         objUser.Email = email;
-                        //Generate a pass
+                        //Generate a pass                
                         pass = DevUtility.Controllers.Utility.GenerateRandomNumberByLength(6);
                         string encryptedPass = Encryption.AesEncrypt(pass.ToString());
                         objUser.PasswordHash = encryptedPass;
@@ -78,6 +53,7 @@ namespace IntegrationAPIs.Controllers
                         db.SaveChanges();
                         int userId = objUser.UserID;
                         #endregion
+
                         #region Create Person
                         // Create in Person table
                         var newPerson = new Person();
@@ -93,7 +69,8 @@ namespace IntegrationAPIs.Controllers
                         
                         #endregion
                     }
-                    #region Create Person Type
+
+                        #region Create Person Type
                     int personTypeId = (int)Enums.PersonType.Subscriber;
                     var objActiveSubscriber = db.PersonPersonTypes.Where(obj => obj.PersonID == personId && obj.PersonTypeID == personTypeId).FirstOrDefault();
                     if(objActiveSubscriber == null)
@@ -111,6 +88,7 @@ namespace IntegrationAPIs.Controllers
                         db.PersonPersonTypes.Add(objPPT);
                         db.SaveChanges();
                         #endregion
+
                         #region Send Mail
                         //Mailer.SendFormattedHtmlEmail(email, "subscribe", pass.ToString());
                         //var utilService = new Services.UtilService();
@@ -139,10 +117,12 @@ namespace IntegrationAPIs.Controllers
             catch (Exception exc)
             {
                 #region Log Exception
-                var utility = new UtilityController();
+                var logger = new DevUtility.Controllers.Logger();
                 int levelType = (int)Enums.LevelType.Exception;
                 int level = (int)Enums.Level.Error;
-                utility.WriteExceptionLog(exc, level, levelType, null, null);
+                string email = !string.IsNullOrEmpty(newsletter.EmailAddress)
+                    ? newsletter.EmailAddress : null;
+                logger.ExceptionLogger(exc, level, levelType, email);
                 #endregion
 
                 return Ok(new
@@ -152,7 +132,6 @@ namespace IntegrationAPIs.Controllers
             }
             return Ok(new { response = "success" });
         }
-
         
     }
 }

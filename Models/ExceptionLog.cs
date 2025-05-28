@@ -17,9 +17,9 @@ namespace IntegrationAPIs.Models
         public int ExceptionLogID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> PersonID { get; set; }
-        public System.DateTime Timestamp { get; set; }
-        public int LevelID { get; set; }
-        public int LevelTypeID { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
+        public Nullable<int> LevelID { get; set; }
+        public Nullable<int> LevelTypeID { get; set; }
         public string Message { get; set; }
         public string ExceptionType { get; set; }
         public string StackTrace { get; set; }
@@ -34,5 +34,6 @@ namespace IntegrationAPIs.Models
         public string ClientIp { get; set; }
         public string UserAgent { get; set; }
         public Nullable<int> EnvironmentID { get; set; }
+        public string EmailAddress { get; set; }
     }
 }

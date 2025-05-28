@@ -38,5 +38,7 @@ namespace IntegrationAPIs.Models
         public virtual DbSet<ExceptionLog> ExceptionLogs { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<LevelType> LevelTypes { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<State> States { get; set; }
     }
 }
