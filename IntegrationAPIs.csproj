@@ -235,6 +235,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppSetting.cs">
       <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
     </Compile>

@@ -49,6 +49,7 @@ namespace IntegrationAPIs.Controllers
                         string encryptedPass = Encryption.AesEncrypt(pass.ToString());
                         objUser.PasswordHash = encryptedPass;
                         objUser.Username = pass;
+                        objUser.CreatedOnDate = DateTime.Now;
                         db.Users.Add(objUser);
                         db.SaveChanges();
                         int userId = objUser.UserID;

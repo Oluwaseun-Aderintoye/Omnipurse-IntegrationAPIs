@@ -40,5 +40,6 @@ namespace IntegrationAPIs.Models
         public virtual DbSet<LevelType> LevelTypes { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
     }
 }

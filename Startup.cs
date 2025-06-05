@@ -17,26 +17,42 @@ namespace IntegrationAPIs
 
     public partial class Startup
     {
+        public static void Register(HttpConfiguration config)
+        {
+            // 🔐 Allow Angular origin
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
+
+            // Other Web API configuration
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+
         public void Configuration(IAppBuilder app)
         {
-            // OAuth setup if any
-            //ConfigureOAuth(app);
+            //// OAuth setup if any
+            ////ConfigureOAuth(app);
 
-            // Web API config
-            var httpConfig = new HttpConfiguration();
+            //// Web API config
+            //var httpConfig = new HttpConfiguration();
 
-            // CORS setup - allow Angular
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
-            httpConfig.EnableCors(cors);  // From Microsoft.AspNet.WebApi.Cors
+            //// CORS setup - allow Angular
+            //var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            //httpConfig.EnableCors(cors);  // From Microsoft.AspNet.WebApi.Cors
 
-            // Register routes, formatters, etc.
-            ConfigureWebApi(httpConfig);
+            //// Register routes, formatters, etc.
+            //ConfigureWebApi(httpConfig);
 
-            // Enable CORS via OWIN
-            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);  // optional if already handled above
+            //// Enable CORS via OWIN
+            ////app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);  // optional if already handled above
 
-            // Hook Web API into OWIN pipeline
-            //app.UseWebApi(httpConfig);
+            //// Hook Web API into OWIN pipeline
+            ////app.UseWebApi(httpConfig);
         }
 
         private void ConfigureWebApi(HttpConfiguration config)

@@ -11,9 +11,11 @@ using IntegrationAPIs.Enums;
 using IntegrationAPIs.Models;
 using DevUtility.Controllers;
 using IntegrationAPIs.classes;
+using System.Web.Http.Cors;
 
 namespace IntegrationAPIs.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class GenericController : ApiController
     {
         OmnipurseDBEntities db = new OmnipurseDBEntities();
@@ -21,12 +23,14 @@ namespace IntegrationAPIs.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/Generic/GetCountrys")]
-        public IHttpActionResult GetCountrys([FromBody] LogUser loggedUser)
+        public IHttpActionResult GetCountrys([FromBody] LogUserDTO logUserDTO)
         {
-            IEnumerable<Country> listCountry = null; 
+            IEnumerable<CountryDTO> listCountry = null; 
             try
             {
-                listCountry = db.Countries.ToList();
+                listCountry = db.Countries
+                  .Select(c => new CountryDTO { CountryID = c.CountryID, CountryName = c.CountryName })
+                  .ToList();
             }
             catch (Exception exc)
             {
@@ -34,8 +38,8 @@ namespace IntegrationAPIs.Controllers
                 var logger = new DevUtility.Controllers.Logger();
                 int levelType = (int)Enums.LevelType.Exception;
                 int level = (int)Enums.Level.Error;
-                string email = !string.IsNullOrEmpty(loggedUser.LoggedUser)
-                    ? loggedUser.LoggedUser : null;
+                string email = !string.IsNullOrEmpty(logUserDTO.LoggedUser)
+                    ? logUserDTO.LoggedUser : null;
                 logger.ExceptionLogger(exc, level, levelType, email);
                 #endregion
 
@@ -49,13 +53,13 @@ namespace IntegrationAPIs.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("api/Generic/GetStatesByCountryID/{countryId}/{loggedUser}")]
+        [Route("api/Generic/GetStatesByCountryID")]
         public IHttpActionResult GetStatesByCountryID(int countryId, string loggedUser = "")
         {
-            IEnumerable<State> listStates = null;
+            IEnumerable<StateDTO> listStates = null;
             try
             {
-                listStates = db.States.Where(obj => obj.CountryID == countryId).ToList();
+                listStates = db.States.Where(obj => obj.CountryID == countryId).Select(obj => new StateDTO { StateID = obj.StateID, CountryID = obj.CountryID, StateName = obj.StateName }).ToList();
             }
             catch (Exception exc)
             {
@@ -75,6 +79,8 @@ namespace IntegrationAPIs.Controllers
             }
             return Ok(new { response = "success", listStates = listStates });
         }
+
+        
 
     }
 }

@@ -10,13 +10,26 @@ namespace IntegrationAPIs.classes
         
     }
 
-    public class EmailAddress
+    public class EmailDTO
     {
         public string Email { get; set;}
     }
 
-    public class LogUser
+    public class LogUserDTO
     {
         public string LoggedUser { get; set; }
+    }
+
+    public class CountryDTO
+    {
+        public int CountryID { get; set; }
+        public string CountryName { get; set; }
+    }
+
+    public class StateDTO
+    {
+        public int StateID { get; set; }
+        public int? CountryID { get; set; }
+        public string StateName { get; set; }
     }
 }

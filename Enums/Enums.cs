@@ -30,7 +30,8 @@ namespace IntegrationAPIs.Enums
         SuperAdmin = 1,
         Admin = 2,
         ContactUs = 3,
-        Subscriber = 4
+        Subscriber = 4,
+        User = 5
     }
 
     public enum Environment
@@ -39,7 +40,7 @@ namespace IntegrationAPIs.Enums
         Testing = 2,
         Staging = 3,
         Production = 4,
-        QA
+        QA = 5
     }
 
     public enum LevelType
