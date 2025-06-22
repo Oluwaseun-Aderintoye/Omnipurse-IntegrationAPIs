@@ -41,5 +41,7 @@ namespace IntegrationAPIs.Models
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<Consultation> Consultations { get; set; }
     }
 }

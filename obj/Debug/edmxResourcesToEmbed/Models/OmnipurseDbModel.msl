@@ -293,5 +293,49 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.Service">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="FullDescription" ColumnName="FullDescription" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consultations">
+      <EntityTypeMapping TypeName="OmnipurseDBModel.Consultation">
+        <MappingFragment StoreEntitySet="Consultation">
+          <ScalarProperty Name="ConsultantComment" ColumnName="ConsultantComment" />
+          <ScalarProperty Name="ActualConsultationDate" ColumnName="ActualConsultationDate" />
+          <ScalarProperty Name="ConsultantUserID" ColumnName="ConsultantUserID" />
+          <ScalarProperty Name="AssignedToUserID" ColumnName="AssignedToUserID" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusGroupID" ColumnName="StatusGroupID" />
+          <ScalarProperty Name="ScheduleTime" ColumnName="ScheduleTime" />
+          <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+          <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConsultationID" ColumnName="ConsultationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

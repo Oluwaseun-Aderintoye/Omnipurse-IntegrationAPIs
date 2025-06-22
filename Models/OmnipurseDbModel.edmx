@@ -35,6 +35,30 @@
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="500" />
           <Property Name="LastModifiedOnDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Consultation">
+          <Key>
+            <PropertyRef Name="ConsultationID" />
+          </Key>
+          <Property Name="ConsultationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ServiceID" Type="int" />
+          <Property Name="AdditionalInformation" Type="nvarchar(max)" />
+          <Property Name="ScheduleDate" Type="date" Nullable="false" />
+          <Property Name="ScheduleTime" Type="time" Precision="4" Nullable="false" />
+          <Property Name="StatusGroupID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="CreatedOnDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+          <Property Name="LastModifiedByUserID" Type="nvarchar" MaxLength="150" />
+          <Property Name="AssignedToUserID" Type="int" />
+          <Property Name="ConsultantUserID" Type="int" />
+          <Property Name="ActualConsultationDate" Type="datetime" />
+          <Property Name="ConsultantComment" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="ContactUs">
           <Key>
             <PropertyRef Name="ContactUsID" />
@@ -205,6 +229,24 @@
           <Property Name="LastModifiedByUserID" Type="int" />
           <Property Name="ModuleID" Type="int" />
         </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="150" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="FullDescription" Type="nvarchar(max)" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="CreatedOnDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="LastModifiedOnDate" Type="datetime" />
+          <Property Name="LastModifiedByUserID" Type="int" />
+        </EntityType>
         <EntityType Name="State">
           <Key>
             <PropertyRef Name="StateID" />
@@ -308,6 +350,7 @@
         <EntityContainer Name="OmnipurseDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consultation" EntityType="Self.Consultation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Environments" EntityType="Self.Environments" Schema="dbo" store:Type="Tables" />
@@ -317,6 +360,7 @@
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonPersonType" EntityType="Self.PersonPersonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonType" EntityType="Self.PersonType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemSetting" EntityType="Self.SystemSetting" Schema="dbo" store:Type="Tables" />
@@ -462,6 +506,8 @@
             <End Role="State" EntitySet="States" />
           </AssociationSet>
           <EntitySet Name="Addresses" EntityType="OmnipurseDBModel.Address" />
+          <EntitySet Name="Services" EntityType="OmnipurseDBModel.Service" />
+          <EntitySet Name="Consultations" EntityType="OmnipurseDBModel.Consultation" />
         </EntityContainer>
         <EntityType Name="AppSetting">
           <Key>
@@ -664,6 +710,48 @@
           <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
           <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
           <Property Name="LastModifiedByUserID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Slug" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FullDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedByUserID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Consultation">
+          <Key>
+            <PropertyRef Name="ConsultationID" />
+          </Key>
+          <Property Name="ConsultationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceID" Type="Int32" />
+          <Property Name="AdditionalInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ScheduleTime" Type="Time" Nullable="false" Precision="4" />
+          <Property Name="StatusGroupID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedByUserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AssignedToUserID" Type="Int32" />
+          <Property Name="ConsultantUserID" Type="Int32" />
+          <Property Name="ActualConsultationDate" Type="DateTime" Precision="3" />
+          <Property Name="ConsultantComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -960,6 +1048,50 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="FullDescription" ColumnName="FullDescription" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consultations">
+            <EntityTypeMapping TypeName="OmnipurseDBModel.Consultation">
+              <MappingFragment StoreEntitySet="Consultation">
+                <ScalarProperty Name="ConsultantComment" ColumnName="ConsultantComment" />
+                <ScalarProperty Name="ActualConsultationDate" ColumnName="ActualConsultationDate" />
+                <ScalarProperty Name="ConsultantUserID" ColumnName="ConsultantUserID" />
+                <ScalarProperty Name="AssignedToUserID" ColumnName="AssignedToUserID" />
+                <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+                <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusGroupID" ColumnName="StatusGroupID" />
+                <ScalarProperty Name="ScheduleTime" ColumnName="ScheduleTime" />
+                <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ConsultationID" ColumnName="ConsultationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

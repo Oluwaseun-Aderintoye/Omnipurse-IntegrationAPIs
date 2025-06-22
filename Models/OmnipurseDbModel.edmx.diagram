@@ -23,6 +23,8 @@
         <EntityTypeShape EntityType="OmnipurseDBModel.State" Width="1.5" PointX="11.625" PointY="11.875" />
         <AssociationConnector Association="OmnipurseDBModel.Country_State" />
         <EntityTypeShape EntityType="OmnipurseDBModel.Address" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.Service" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OmnipurseDBModel.Consultation" Width="1.5" PointX="0.75" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

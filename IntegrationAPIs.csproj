@@ -221,11 +221,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="classes\Auth.cs" />
+    <Compile Include="classes\Service.cs" />
     <Compile Include="classes\Generic.cs" />
     <Compile Include="classes\Person.cs" />
     <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\HomController.cs" />
@@ -239,6 +241,9 @@
       <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AppSetting.cs">
+      <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Consultation.cs">
       <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactU.cs">
@@ -281,6 +286,9 @@
       <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonType.cs">
+      <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Service.cs">
       <DependentUpon>OmnipurseDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\State.cs">

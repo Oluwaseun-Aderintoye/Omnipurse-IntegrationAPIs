@@ -74,7 +74,7 @@ namespace IntegrationAPIs.Controllers
                         #region Create Person Type
                     int personTypeId = (int)Enums.PersonType.Subscriber;
                     var objActiveSubscriber = db.PersonPersonTypes.Where(obj => obj.PersonID == personId && obj.PersonTypeID == personTypeId).FirstOrDefault();
-                    if(objActiveSubscriber == null)
+                    if (objActiveSubscriber == null)
                     {
                         var objPPT = new PersonPersonType();
                         objPPT.PersonTypeID = personTypeId;
@@ -91,19 +91,15 @@ namespace IntegrationAPIs.Controllers
                         #endregion
 
                         #region Send Mail
-                        //Mailer.SendFormattedHtmlEmail(email, "subscribe", pass.ToString());
-                        //var utilService = new Services.UtilService();
-                        //var appSetting = db.AppSettings.Where(obj => obj.SettingKey == "ContactUsMailReceipt").FirstOrDefault();
-                        //if(appSetting != null)
-                        //{
-                        //    string mailBody = appSetting.SettingValue;
-                        //    mailBody = mailBody.Replace("[UserName]", contactUs.Name)
-                        //        .Replace("[UserEmail]", contactUs.EmailAddress)
-                        //        .Replace("[UserSubject]", contactUs.Subject)
-                        //        .Replace("[UserMessage]", contactUs.Message);
-
-                        //    utilService.SendFormattedHTMLEmail(contactUs.EmailAddress, contactUs.Subject, mailBody);
-                        //}
+                        var generic = new GenericController();
+                        string toEmail = string.Empty;
+                        string mailSubject = string.Empty;
+                        string mailBody = string.Empty;
+                        var settings = generic.LoadSmtpSettings();
+                        toEmail = newsletter.EmailAddress;
+                        mailSubject = settings["SubcriberMailSubject"];
+                        mailBody = settings["SubcriberMailBody"];
+                        generic.SendMail(toEmail, mailSubject, mailBody);
                         #endregion
 
                         //if logged in, pass PersonID to 

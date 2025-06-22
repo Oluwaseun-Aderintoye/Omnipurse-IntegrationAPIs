@@ -127,6 +127,8 @@
       <End Role="State" EntitySet="States" />
     </AssociationSet>
     <EntitySet Name="Addresses" EntityType="OmnipurseDBModel.Address" />
+    <EntitySet Name="Services" EntityType="OmnipurseDBModel.Service" />
+    <EntitySet Name="Consultations" EntityType="OmnipurseDBModel.Consultation" />
   </EntityContainer>
   <EntityType Name="AppSetting">
     <Key>
@@ -329,5 +331,47 @@
     <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
     <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
     <Property Name="LastModifiedByUserID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Slug" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FullDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Icon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedByUserID" Type="Int32" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Consultation">
+    <Key>
+      <PropertyRef Name="ConsultationID" />
+    </Key>
+    <Property Name="ConsultationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceID" Type="Int32" />
+    <Property Name="AdditionalInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ScheduleDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ScheduleTime" Type="Time" Nullable="false" Precision="4" />
+    <Property Name="StatusGroupID" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedByUserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="AssignedToUserID" Type="Int32" />
+    <Property Name="ConsultantUserID" Type="Int32" />
+    <Property Name="ActualConsultationDate" Type="DateTime" Precision="3" />
+    <Property Name="ConsultantComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>
